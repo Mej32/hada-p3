@@ -14,7 +14,11 @@ namespace library
         private string constring { get; set; }
         public CADProduct()
         {
-            constring = constring;
+            constring = System.String.Empty;
+        }
+        public bool Create(ENProduct en) //falta
+        {
+            return false;
         }
     }
 }
