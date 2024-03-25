@@ -14,7 +14,7 @@
         Amount <asp:TextBox ID ="AmountBox" runat ="server"></asp:TextBox>
     </p>
     <p>
-        Category  <asp:DropDownList ID ="CategoryList" runat ="server"> 
+        Category  <asp:DropDownList ID ="CategoryList" runat ="server">
                     <asp:ListItem Text="Computing" Value="0"></asp:ListItem>
                     <asp:ListItem Text="Telephony" Value="1"></asp:ListItem>
                     <asp:ListItem Text="Gaming" Value="2"></asp:ListItem>
@@ -27,12 +27,5 @@
     <p>
         Creation Date <asp:TextBox ID="CreationDateBox" runat="server"></asp:TextBox>
     </p>
-    <!-- Diferentes botones de final de página los cuales usará el usuario para interactuar con la base de datos -->
-    <asp:Button Text="Create" ID="CreateButton" runat="server" Height="22px" Width="110px" style="margin-right:20px; margin-left:20px;" OnClick="Create_click"></asp:Button>
-    <asp:Button Text="Update" ID="UpdateButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="Update_click"></asp:Button>
-    <asp:Button Text="Delete" ID="DeleteButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="Delete_click"></asp:Button>
-    <asp:Button Text="Read" ID="ReadButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="Read_click"></asp:Button>
-    <asp:Button Text="Read First" ID="ReadFirstButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="ReadFirst_click"></asp:Button>
-    <asp:Button Text="Read Prev" ID="ReadPrevButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="ReadPrev_click"></asp:Button>
-    <asp:Button Text="Read Next" ID="ReadNextButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" Onclick="ReadNext_click"></asp:Button>
+    <asp:Button Text="Create" ID="CreateButton" runat="server" Height="22px" Width="109px"></asp:Button>
 </asp:Content>
