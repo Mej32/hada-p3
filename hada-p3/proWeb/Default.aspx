@@ -5,7 +5,6 @@
     <h1>Products management</h1>
     <p> <!-- Creación de la interfaz de la página web -->
         Code <asp:TextBox ID ="Codebox" runat ="server"></asp:TextBox>
-
     </p>
     <p>
         Name <asp:TextBox ID ="NameBox" runat ="server"></asp:TextBox>
@@ -35,4 +34,7 @@
     <asp:Button Text="Read First" ID="ReadFirstButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="ReadFirst_click"></asp:Button>
     <asp:Button Text="Read Prev" ID="ReadPrevButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="ReadPrev_click"></asp:Button>
     <asp:Button Text="Read Next" ID="ReadNextButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" Onclick="ReadNext_click"></asp:Button>
+    <br />
+    <asp:Label ID="EtiquetaExito" runat="server" Text="Product operation has been sucess!" style="color:forestgreen; font:italic" Visible="false"></asp:Label>
+    <asp:Label ID="EtiquetaFallo" runat="server" Text="Product operation has failed." style="color:red; font:italic" Visible="false"></asp:Label>
 </asp:Content>
