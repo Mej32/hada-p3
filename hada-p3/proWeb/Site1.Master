@@ -9,10 +9,10 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body style="height: 141px">
     Nombres: Jesús Ballesteros Navarro y Marcos García Quiles - DNI: 50387249E y 48766914Z
-    <div style="background-color: cyan; text-align: center;">  <!-- Para centrar el titulo y poner el color de la página -->
-        <h1> HADA P3 - CURSO 2023/24</h1>
+    <div style="background-color: cyan; text-align: center; padding:10px; height: 78px;">  <!-- Para centrar el titulo y poner el color de la página -->
+        <h1 style="height: 50px"> HADA P3 - CURSO 2023/24</h1>
     </div>
     <form id="form1" runat="server">
         <div>
