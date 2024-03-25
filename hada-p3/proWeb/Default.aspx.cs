@@ -13,6 +13,7 @@ namespace proWeb
         {
 
         }
+<<<<<<< HEAD
         protected void Create_click(object sender, EventArgs create)
         {
             EtiquetaExito.Visible = false;
@@ -134,5 +135,7 @@ namespace proWeb
             }
 
         }
+=======
+>>>>>>> marcos
     }
 }
