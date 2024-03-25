@@ -26,7 +26,6 @@
     <p>
         Creation Date <asp:TextBox ID="CreationDateBox" runat="server"></asp:TextBox>
     </p>
-<<<<<<< HEAD
     <!-- Diferentes botones de final de página los cuales usará el usuario para interactuar con la base de datos -->
     <asp:Button Text="Create" ID="CreateButton" runat="server" Height="22px" Width="110px" style="margin-right:20px; margin-left:20px;" OnClick="Create_click"></asp:Button>
     <asp:Button Text="Update" ID="UpdateButton" runat="server" Height="22px" Width="110px" style="margin-right:20px;" OnClick="Update_click"></asp:Button>
@@ -38,7 +37,4 @@
     <br />
     <asp:Label ID="EtiquetaExito" runat="server" Text="Product operation has been sucess!" style="color:forestgreen; font:italic" Visible="false"></asp:Label>
     <asp:Label ID="EtiquetaFallo" runat="server" Text="Product operation has failed." style="color:red; font:italic" Visible="false"></asp:Label>
-=======
-    <asp:Button Text="Create" ID="CreateButton" runat="server" Height="22px" Width="109px"></asp:Button>
->>>>>>> marcos
 </asp:Content>
