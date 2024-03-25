@@ -13,19 +13,19 @@ namespace library
         private int amount { get; set; }
         private int category { get; set; }
         private float price { get; set; }
-        //private DataTime creationDate { get; set; }
+        private DateTime creationDate { get; set; }
         public ENProduct()
         {
 
         }
-        public ENProduct(string code, string name, int amount, float price, int category /*,DataTime creationDate*/)
+        public ENProduct(string code, string name, int amount, float price, int category ,DateTime creationDate)
         {
             this.code = code;
             this.name = name;
             this.amount = amount;
             this.category = category;
             this.price = price;
-            //this.creationDate = creationDate;
+            this.creationDate = creationDate;
 
         }
         public bool Create() //falta a base de CADProducts
