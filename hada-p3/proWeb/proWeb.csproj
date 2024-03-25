@@ -67,6 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
   </ItemGroup>
@@ -99,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\library\library.csproj">
-      <Project>{0c8f5a18-b77c-4469-a70d-ef621566657e}</Project>
+      <Project>{2ff5aae6-a244-4278-9470-b48f3ad76ab7}</Project>
       <Name>library</Name>
     </ProjectReference>
   </ItemGroup>
