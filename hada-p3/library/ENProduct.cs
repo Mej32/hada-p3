@@ -18,7 +18,7 @@ namespace library
         {
 
         }
-        public ENProduct(string code, string name, int amount, float price, int category ,DateTime creationDate)
+        public ENProduct(string code, string name, int amount, float price, int category, DateTime creationDate)
         {
             this.code = code;
             this.name = name;
@@ -35,10 +35,10 @@ namespace library
 
         public bool Update() { 
         
-        } /*Actualiza este producto en la BD.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
+        } /*Actualiza este producto en la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
         public bool Delete() { 
         
-        } /*Borra este producto de la BD.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
+        } /*Borra este producto de la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
         public bool Read() { 
         
         } /*Recupera el producto indicado de la BD.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/

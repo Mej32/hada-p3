@@ -139,8 +139,21 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
-                producto.ReadFirst();
-                EtiquetaExito.Visible = true;
+                try
+                {
+                    if (producto.ReadFirst())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
             }
         }
         protected void ReadPrev_click(object sender, EventArgs RP)
@@ -153,8 +166,21 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                producto.ReadPrev();
-                EtiquetaExito.Visible = true;
+                try
+                {
+                    if (producto.ReadPrev())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
             }
 
         }
@@ -168,8 +194,21 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                producto.ReadNext();
-                EtiquetaExito.Visible = true;
+                try
+                {
+                    if (producto.ReadNext())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
             }
 
         }
