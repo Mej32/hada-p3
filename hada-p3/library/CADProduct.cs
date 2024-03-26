@@ -83,7 +83,7 @@ namespace library
             }
         } /*Borra el producto representado en en de la BD.*/
         public bool Read(ENProduct en){
-            return false;
+            return en.Read();
         }/* Devuelve solo el producto indicado leído de la BD.*/
         public bool ReadFirst(ENProduct en){
             return false;
