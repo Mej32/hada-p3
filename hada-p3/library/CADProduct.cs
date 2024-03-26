@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Configuration;
 using System.Data.SqlClient;
 
 
@@ -15,11 +14,28 @@ namespace library
         public CADProduct()
         {
             constring = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
         }
+        
         public bool Create(ENProduct en) //falta
         {
-            SqlConnection connection = new SqlConnection(constring);
-            return false;
+            using(SqlConnection connection = new SqlConnection(constring))
+            {
+                try
+                {
+                    connection.Open();
+                    string Consulta = "INSERT INTO Products (name,code,amount,price,category,creationDate) VALUES (@name,@code,@amount,@price,@category,@creationDate)";
+                    SqlCommand consulta = new SqlCommand(Consulta, connection);
+                }
+                catch(SqlException ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    return false;
+
+                }
+            }
+            
+            return true;
         }
         public bool Update(ENProduct en){
             return false;

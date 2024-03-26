@@ -17,7 +17,7 @@ namespace proWeb
         }
         private bool Check(ref int amount, ref float price, ref int valuecat, ref DateTime Correctformat)
         {
-            string formatofecha = "dd/mm/aaaa hh:mm:ss";
+            string formatofecha = "dd/MM/yyyy HH:mm:ss";
 
             try
             {
