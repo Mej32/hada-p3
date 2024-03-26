@@ -13,7 +13,17 @@ namespace proWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
 
+                ENCategory enc = new ENCategory();
+                Dictionary<int, string> data = new Dictionary<int, string>();
+                data.Add(1, "Computing");
+                data.Add(2, "Telephony");
+                data.Add(3, "Gaming");
+                data.Add(4, "Home appliances");
+
+            }
         }
         private bool Check(ref int amount, ref float price, ref int valuecat, ref DateTime Correctformat)
         {
@@ -58,7 +68,7 @@ namespace proWeb
                 return false;
             }
 
-        }
+        }//Metodo creado para comprobar formato introducido, pasa los parametros por referencia
         protected void Create_click(object sender, EventArgs create)
         {
             EtiquetaExito.Visible = false;
@@ -68,6 +78,7 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount,ref price,ref valuecat,ref Correctformat))
             {
+                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.Create())
                 {
@@ -79,7 +90,7 @@ namespace proWeb
                 }
             }
 
-
+            
         }
         protected void Update_click(object sender, EventArgs update)
         {
@@ -90,6 +101,7 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
+                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
 
                 if (producto.Update())
@@ -112,6 +124,7 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
+                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.Delete())
                 {
@@ -132,7 +145,8 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
+                valuecat += 1;
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); 
                 if (producto.ReadFirst())
                 {
                     EtiquetaExito.Visible = true;
@@ -152,7 +166,8 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
+                valuecat += 1;
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); 
                 if (producto.Read())
                 {
                     EtiquetaExito.Visible = true;
@@ -172,6 +187,7 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
+                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.ReadPrev())
                 {
@@ -193,6 +209,7 @@ namespace proWeb
             DateTime Correctformat = DateTime.MinValue;
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
+                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.ReadNext())
                 {

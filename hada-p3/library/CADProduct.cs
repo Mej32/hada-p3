@@ -22,7 +22,7 @@ namespace library
 
         }
 
-        public bool Create(ENProduct en) //falta
+        public bool Create(ENProduct en) 
         {
             using(SqlConnection connection = new SqlConnection(constring))
             {
@@ -34,7 +34,6 @@ namespace library
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.ExecuteNonQuery(); 
                     connection.Close();
-
                     return true;
                 }
                 catch (SqlException ex)
@@ -55,9 +54,16 @@ namespace library
                     string fechaHoraSQL = en.creationDate.ToString("yyyy-MM-dd HH:mm:ss");
                     string Consulta = $"UPDATE Products SET name='" + en.name + "',price=" + en.price + ",amount=" + en.amount + ",category=" + en.category + ",creationDate='" + fechaHoraSQL + "'WHERE code ='" + en.code + "';";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
-                    consulta.ExecuteNonQuery();
+                    int columnasafectadas=consulta.ExecuteNonQuery();
                     connection.Close();
-                    return true;
+                    if (columnasafectadas < 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 catch (SqlException ex)
                 {
@@ -78,9 +84,17 @@ namespace library
                     connection.Open();
                     string Consulta = $"DELETE FROM Products WHERE code = '"+ en.code + "';";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
-                    consulta.ExecuteNonQuery();
+                    int columnasafectadas = consulta.ExecuteNonQuery();
                     connection.Close();
-                    return true;
+                    if (columnasafectadas < 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                    
                 }
                 catch (SqlException ex)
                 {

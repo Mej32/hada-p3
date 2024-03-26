@@ -14,10 +14,6 @@
     </p>
     <p>
         Category  <asp:DropDownList ID ="CategoryList" runat ="server">
-                    <asp:ListItem Text="Computing" Value="0"></asp:ListItem>
-                    <asp:ListItem Text="Telephony" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Gaming" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="Home appliances" Value="3"></asp:ListItem>
                   </asp:DropDownList>
     </p>
     <p>

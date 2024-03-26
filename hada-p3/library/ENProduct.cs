@@ -64,14 +64,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.Create(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.Create(this);
             }catch(Exception ex)
             {
                 Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
@@ -83,15 +76,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.Update(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                
+                return producto.Update(this);
             }
             catch (Exception ex)
             {
@@ -103,14 +88,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.Delete(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.Delete(this);
             }
             catch (Exception ex)
             {
@@ -122,14 +100,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.Read(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.Read(this);
                 
             }
             catch (Exception ex)
@@ -142,14 +113,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.ReadFirst(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.ReadFirst(this);
             }
             catch (Exception ex)
             {
@@ -161,14 +125,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.ReadNext(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.ReadNext(this);
             }
             catch (Exception ex)
             {
@@ -180,14 +137,7 @@ namespace library
             try
             {
                 CADProduct producto = new CADProduct();
-                if (producto.ReadPrev(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.ReadPrev(this);
             }
             catch (Exception ex)
             {
