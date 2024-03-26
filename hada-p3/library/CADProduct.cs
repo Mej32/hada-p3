@@ -30,7 +30,7 @@ namespace library
         public bool ReadFirst(ENProduct en){
 
         } /*Devuelve solo el primer producto de la BD.*/
-        public bool ReadNext(ENProducten){
+        public bool ReadNext(ENProduct en){
     
         }/*Devuelvesolo el producto siguiente  al indicado.*/
         public bool ReadPrev(ENProduct en){

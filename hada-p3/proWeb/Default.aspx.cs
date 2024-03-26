@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using library;
+
 
 namespace proWeb
 {
@@ -13,107 +15,146 @@ namespace proWeb
         {
 
         }
-
-        protected void Create_click(object sender, EventArgs create)
+        private bool Check(ref int amount, ref float price, ref int valuecat, ref DateTime Correctformat)
         {
-            EtiquetaExito.Visible = false;
-            EtiquetaFallo.Visible = false;
-            //llama a crear obj
+            string formatofecha = "dd/mm/aaaa hh:mm:ss";
+
             try
             {
-                //Create();
-                EtiquetaExito.Visible = true;
-                
+                if (!int.TryParse(AmountBox.Text, out amount))
+                {
+                    throw new Exception();
+                }
+                if (!float.TryParse(PriceBox.Text, out price))
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    price = (float)Math.Round(price, 2);
+                }
+                if (!int.TryParse(CategoryList.SelectedValue, out valuecat))
+                {
+                    throw new Exception();
+                }
+                if (!DateTime.TryParseExact(CreationDateBox.Text, formatofecha, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out Correctformat)) //Compara el formato de la fecha con el formato del segundo string y si es igual devuelve true y esa fecha en Correctformat
+                {
+                    throw new ArgumentException();
+                }
+                if ((Codebox.Text.Length > 16 || Codebox.Text.Length < 1) || (NameBox.Text.Length > 32) || (amount < 0 || amount > 9999) || (price < 0 || price > 9999.99) || (valuecat > 3 || valuecat < 0)){
+                    EtiquetaFallo.Visible = true;
+                    throw new Exception();
+                }
+                else
+                {
+                    
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 EtiquetaFallo.Visible = true;
                 Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
+                return false;
             }
+
+        }
+        protected void Create_click(object sender, EventArgs create)
+        {
+            EtiquetaExito.Visible = false;
+            EtiquetaFallo.Visible = false;
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount,ref price,ref valuecat,ref Correctformat))
+            {
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
+                producto.Create();
+                EtiquetaExito.Visible = true;
+            }
+
+
         }
         protected void Update_click(object sender, EventArgs update)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
-            //llama a actualizar obj
-            try
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                //Update();
-                EtiquetaExito.Visible = true;
-
-            }
-            catch(Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
+                try
+                {
+                    if (producto.Update())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
             }
         }
         protected void Delete_click(object sender, EventArgs delete)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
-            //llama a borrar obj
-            try
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                //Delete();
-                EtiquetaExito.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
-            }
-        }
-        protected void Read_click(object sender, EventArgs read)
-        {
-            EtiquetaExito.Visible = false;
-            EtiquetaFallo.Visible = false;
-            //llama a leer obj
-            try
-            {
-                //Read();
-                EtiquetaExito.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
+                try
+                {
+                    if (producto.Delete())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
             }
         }
         protected void ReadFirst_click(object sender, EventArgs RF)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
-            //llama a leer primer obj
-            try
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                //ReaFirst();
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
+                producto.ReadFirst();
                 EtiquetaExito.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
             }
         }
         protected void ReadPrev_click(object sender, EventArgs RP)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
-            //llama a leer obj anterior obj
-            try
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                //ReadPrev();
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
+                producto.ReadPrev();
                 EtiquetaExito.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
             }
 
         }
@@ -121,17 +162,14 @@ namespace proWeb
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
-            //llama a leer siguiente obj
-            try
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                //ReadNext();
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
+                producto.ReadNext();
                 EtiquetaExito.Visible = true;
-
-            }
-            catch (Exception ex)
-            {
-                EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
             }
 
         }
