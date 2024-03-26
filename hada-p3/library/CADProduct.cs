@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using System.Configuration;
 
 
 namespace library
@@ -13,36 +14,73 @@ namespace library
         private string constring { get; set; }
         public CADProduct()
         {
-            constring = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            
+            constring = ConfigurationManager.ConnectionStrings["constring"].ToString();
+
+
         }
-        
+
         public bool Create(ENProduct en) //falta
         {
-            using(SqlConnection connection = new SqlConnection(constring))
+            using(SqlConnection connection = new SqlConnection(en.ToString()))
             {
                 try
                 {
                     connection.Open();
-                    string Consulta = "INSERT INTO Products (name,code,amount,price,category,creationDate) VALUES (@name,@code,@amount,@price,@category,@creationDate)";
+                    string Consulta = $"INSERT INTO Products (name,code,amount,price,category,creationDate) VALUES ('{en.name}','{en.code}',{en.amount},{en.price},{en.category},'{en.creationDate}')";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    connection.Close();
+                    return true;
                 }
                 catch(SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    return false;
+
+                }    
+            }
+        }
+        public bool Update(ENProduct en){
+            using (SqlConnection connection = new SqlConnection(en.ToString()))
+            {
+                try
+                {
+                    connection.Open();
+                    string Consulta = $"UPDATE Products SET name='" + en.name + "',price=" + en.price + ",amount=" + en.amount + ",category=" + en.category + ",creationDate='" + en.creationDate + "'WHERE code ='" + en.code + "';";
+                    SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    connection.Close();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
                     return false;
 
                 }
             }
-            
-            return true;
-        }
-        public bool Update(ENProduct en){
-            return false;
+
         }/* Actualiza los datos de un producto en la BDconlos datos del producto representado por el parámetro en.*/
         
         public bool Delete(ENProduct en){
-            return false;
+            using (SqlConnection connection = new SqlConnection(en.ToString()))
+            {
+                try
+                {
+                    connection.Open();
+                    string Consulta = $"DELETE FROM Products WHERE code = '"+ en.code + "';";
+                    SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    connection.Close();
+                    return true;
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    return false;
+
+                }
+            }
         } /*Borra el producto representado en en de la BD.*/
         public bool Read(ENProduct en){
             return false;

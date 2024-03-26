@@ -8,12 +8,43 @@ namespace library
 {
     public class ENProduct
     {
-        private string code { get; set; }
-        private string name { get; set; }
-        private int amount { get; set; }
-        private int category { get; set; }
-        private float price { get; set; }
-        private DateTime creationDate { get; set; }
+        private string _code { get; set; }
+        private string _name { get; set; }
+        private int _amount { get; set; }
+        private int _category { get; set; }
+        private float _price { get; set; }
+        private DateTime _creationDate { get; set; }
+        public string code
+        {
+            get { return _code; }
+            set { _code = value;}
+
+        }
+        public string name
+        {
+            get { return _name; }
+            set { _name = value;}
+        }
+        public int amount
+        {
+            get { return _amount; }
+            set { _amount = value; }
+        }
+        public int category
+        {
+            get { return _category; }
+            set { _category = value; }
+        }
+        public float price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
+        public DateTime creationDate
+        {
+            get { return _creationDate; }
+            set { _creationDate = value; }
+        }
         public ENProduct()
         {
 
