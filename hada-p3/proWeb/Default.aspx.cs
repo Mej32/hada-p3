@@ -69,8 +69,14 @@ namespace proWeb
             if (Check(ref amount,ref price,ref valuecat,ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                producto.Create();
-                EtiquetaExito.Visible = true;
+                if (producto.Create())
+                {
+                    EtiquetaExito.Visible = true;
+                }
+                else
+                {
+                    EtiquetaFallo.Visible = true;
+                }
             }
 
 
@@ -85,21 +91,16 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                try
+
+                if (producto.Update())
                 {
-                    if (producto.Update())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                   EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                   EtiquetaFallo.Visible = true;
                 }
+                
             }
         }
         protected void Delete_click(object sender, EventArgs delete)
@@ -112,20 +113,13 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                try
+                if (producto.Delete())
                 {
-                    if (producto.Delete())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                    EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                    EtiquetaFallo.Visible = true;
                 }
             }
         }
@@ -139,20 +133,13 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
-                try
+                if (producto.ReadFirst())
                 {
-                    if (producto.ReadFirst())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                    EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                    EtiquetaFallo.Visible = true;
                 }
             }
         }
@@ -166,20 +153,13 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
-                try
+                if (producto.Read())
                 {
-                    if (producto.Read())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                    EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                    EtiquetaFallo.Visible = true;
                 }
             }
         }
@@ -193,20 +173,13 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                try
+                if (producto.ReadPrev())
                 {
-                    if (producto.ReadPrev())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                    EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                    EtiquetaFallo.Visible = true;
                 }
             }
 
@@ -221,20 +194,13 @@ namespace proWeb
             if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
             {
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
-                try
+                if (producto.ReadNext())
                 {
-                    if (producto.ReadNext())
-                    {
-                        EtiquetaExito.Visible = true;
-                    }
-                    else
-                    {
-                        EtiquetaFallo.Visible = true;
-                    }
+                    EtiquetaExito.Visible = true;
                 }
-                finally
+                else
                 {
-                    producto = null;
+                    EtiquetaFallo.Visible = true;
                 }
             }
 
