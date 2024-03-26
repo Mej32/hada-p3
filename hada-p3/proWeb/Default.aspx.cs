@@ -156,6 +156,33 @@ namespace proWeb
                 }
             }
         }
+        protected void Read_click(object sender, EventArgs RF)
+        {
+            EtiquetaExito.Visible = false;
+            EtiquetaFallo.Visible = false;
+            int amount = 0, valuecat = 0;
+            float price = 0;
+            DateTime Correctformat = DateTime.MinValue;
+            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            {
+                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); //mirarlo de aqui a abajo
+                try
+                {
+                    if (producto.Read())
+                    {
+                        EtiquetaExito.Visible = true;
+                    }
+                    else
+                    {
+                        EtiquetaFallo.Visible = true;
+                    }
+                }
+                finally
+                {
+                    producto = null;
+                }
+            }
+        }
         protected void ReadPrev_click(object sender, EventArgs RP)
         {
             EtiquetaExito.Visible = false;

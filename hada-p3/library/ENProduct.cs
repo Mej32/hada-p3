@@ -33,23 +33,23 @@ namespace library
             return true;
         }
 
-        public bool Update() { 
-        
+        public bool Update() {
+            return false;
         } /*Actualiza este producto en la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
-        public bool Delete() { 
-        
+        public bool Delete() {
+            return false;
         } /*Borra este producto de la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
-        public bool Read() { 
-        
+        public bool Read() {
+            return false;
         } /*Recupera el producto indicado de la BD.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
-        public bool ReadFirst() { 
-        
+        public bool ReadFirst() {
+            return false;
         } /*Recupera todos los productos de la BD y devuelve solo el primer producto.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
-        public bool ReadNext() { 
-        
+        public bool ReadNext() {
+            return false;
         } /*Recupera todos los productos de la BD y devuelve solo el producto siguiente al indicado.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
-        public bool ReadPrev() { 
-        
+        public bool ReadPrev() {
+            return false;
         } /*Recupera todos los productos de la BD y devuelve solo el producto anterior al indicado.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
     }
 }
