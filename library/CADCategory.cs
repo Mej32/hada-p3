@@ -70,7 +70,7 @@ namespace library
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    throw ex;
+                    return listaenc;
 
                 }
             }
