@@ -14,12 +14,20 @@ namespace library
             get { return _name; }
             set { _name = value; }
         }
+        private int _id { get; set; }
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
         public ENCategory()
         {
+            id = 0;
             name = "";
         }
-        public ENCategory(string name)
+        public ENCategory(string name, int id)
         {
+            this.id = id;
             this.name = name;
         }
         public bool read() 
@@ -27,14 +35,8 @@ namespace library
             try
             {
                 CADCategory producto = new CADCategory();
-                if (producto.read(this))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return producto.read(this);
+                
             }
             catch (Exception ex)
             {

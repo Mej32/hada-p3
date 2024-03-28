@@ -59,15 +59,15 @@ namespace library
             this.creationDate = creationDate;
 
         }
-        public bool Create() //falta a base de CADProducts
+        public bool Create() //Crea el producto en la base de datos, devuelve true si consigue hacerlo
         {
             try
             {
                 CADProduct producto = new CADProduct();
                 return producto.Create(this);
-            }catch(Exception ex)
+
+            }catch
             {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                 return false;
             }
         }
@@ -78,9 +78,8 @@ namespace library
                 CADProduct producto = new CADProduct();
                 return producto.Update(this);
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                 return false;
             }
         } /*Actualiza este producto en la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
@@ -90,9 +89,8 @@ namespace library
                 CADProduct producto = new CADProduct();
                 return producto.Delete(this);
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                 return false;
             }
         } /*Borra este producto de la BD. Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
@@ -103,10 +101,9 @@ namespace library
                 return producto.Read(this);
                 
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
-                return false;
+            catch 
+            { 
+                return false; 
             }
         } /*Recupera el producto indicado de la BD.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
         public bool ReadFirst() {
@@ -115,10 +112,9 @@ namespace library
                 CADProduct producto = new CADProduct();
                 return producto.ReadFirst(this);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
-                return false;
+            catch 
+            { 
+                return false; 
             }
         } /*Recupera todos los productos de la BD y devuelve solo el primer producto.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
         public bool ReadNext() {
@@ -127,10 +123,9 @@ namespace library
                 CADProduct producto = new CADProduct();
                 return producto.ReadNext(this);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
-                return false;
+            catch 
+            { 
+                return false; 
             }
         } /*Recupera todos los productos de la BD y devuelve solo el producto siguiente al indicado.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
         public bool ReadPrev() {
@@ -139,10 +134,9 @@ namespace library
                 CADProduct producto = new CADProduct();
                 return producto.ReadPrev(this);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
-                return false;
+            catch 
+            { 
+                return false; 
             }
         } /*Recupera todos los productos de la BD y devuelve solo el producto anterior al indicado.Para ello hará uso de los métodos apropiados de CADProduct.Devuelve false si no se ha podido realizar la operación.*/
     }

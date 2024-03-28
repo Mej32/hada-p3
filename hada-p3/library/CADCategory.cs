@@ -28,6 +28,7 @@ namespace library
                     SqlDataReader dr = consulta.ExecuteReader();
                     if (dr.Read())
                     {
+                        en.id = (int)dr["id"];
                         en.name = dr["name"].ToString();
 
                     }
@@ -57,7 +58,7 @@ namespace library
                     SqlDataReader dr = consulta.ExecuteReader();
                     while (dr.Read())
                     {
-                        ENCategory enc = new ENCategory(dr["name"].ToString());
+                        ENCategory enc = new ENCategory(dr["name"].ToString(),(int) dr["id"]);
                         listaenc.Add(enc);
                     }
                     dr.Close();
@@ -68,7 +69,7 @@ namespace library
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return listaenc;
+                    throw ex;
 
                 }
             }

@@ -30,19 +30,31 @@ namespace library
                 {
                     connection.Open();
                     string fechaHoraSQL = en.creationDate.ToString("yyyy-MM-dd HH:mm:ss");
-                    string Consulta = $"Insert Into Products (code,name,amount,price,category,creationDate) VALUES ('" +en.code +"','" +en.name +"',"+en.amount+","+en.price+","+en.category+",'"+fechaHoraSQL+"')";
+                    string Consulta = $"Insert Into Products (code,name,amount,price,category,creationDate) VALUES (@code,@name,@amount,@price,@category,@fecha)";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
+                    consulta.Parameters.AddWithValue("@name", en.name);
+                    consulta.Parameters.AddWithValue("@amount", en.amount);
+                    consulta.Parameters.AddWithValue("@price", en.price);
+                    consulta.Parameters.AddWithValue("@category", en.category);
+                    consulta.Parameters.AddWithValue("@fecha", fechaHoraSQL);
                     consulta.ExecuteNonQuery(); 
                     connection.Close();
-                    return true;
+                    return true; //no hace falta comprobar ya que si entra en el bool create de CADProducts significa que no hay otro codigo igual y que no 
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
-                }    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
+                }
             }
         }
         public bool Update(ENProduct en){
@@ -52,8 +64,14 @@ namespace library
                 {
                     connection.Open();
                     string fechaHoraSQL = en.creationDate.ToString("yyyy-MM-dd HH:mm:ss");
-                    string Consulta = $"UPDATE Products SET name='" + en.name + "',price=" + en.price + ",amount=" + en.amount + ",category=" + en.category + ",creationDate='" + fechaHoraSQL + "'WHERE code ='" + en.code + "';";
+                    string Consulta = $"UPDATE Products SET name=@name,price=@price,amount=@amount,category=@category,creationDate=@fecha WHERE code =@code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
+                    consulta.Parameters.AddWithValue("@name", en.name);
+                    consulta.Parameters.AddWithValue("@amount", en.amount);
+                    consulta.Parameters.AddWithValue("@price", en.price);
+                    consulta.Parameters.AddWithValue("@category", en.category);
+                    consulta.Parameters.AddWithValue("@fecha", fechaHoraSQL);
                     int columnasafectadas=consulta.ExecuteNonQuery();
                     connection.Close();
                     if (columnasafectadas < 1)
@@ -69,8 +87,14 @@ namespace library
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
                 }
             }
 
@@ -82,8 +106,9 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"DELETE FROM Products WHERE code = '"+ en.code + "';";
+                    string Consulta = $"DELETE FROM Products WHERE code = @code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
                     int columnasafectadas = consulta.ExecuteNonQuery();
                     connection.Close();
                     if (columnasafectadas < 1)
@@ -100,8 +125,14 @@ namespace library
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
                 }
             }
         } /*Borra el producto representado en en de la BD.*/
@@ -111,8 +142,9 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Products WHERE code='" + en.code + "';";
+                    string Consulta = $"SELECT * FROM Products WHERE code=@code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
                     if(dr.Read()){
                         en.code = dr["code"].ToString();
@@ -121,19 +153,21 @@ namespace library
                         en.category = (int)dr["category"];
                         en.price = (float)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
+                        return true;
                     }
                     dr.Close();
                     connection.Close();
-                    return true;
+                    return false;
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
                 }catch(Exception ex)
                 {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
                     throw ex;
                 }
@@ -156,17 +190,24 @@ namespace library
                         en.category = (int)dr["category"];
                         en.price = (float)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
+                        return true;
                     }
                     dr.Close();
                     connection.Close();
-                    return true;
+                    return false; ;
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
                 }
             }
         } /*Devuelve solo el primer producto de la BD.*/
@@ -176,8 +217,9 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MAX(id) FROM Productos where id  < (SELECT id FROM Productos WHERE code =" + en.code + "));";
+                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MAX(id) FROM Productos where id  < (SELECT id FROM Productos WHERE code =@code));";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
                     if (dr.Read())
                     { 
@@ -187,18 +229,24 @@ namespace library
                         en.category = (int)dr["category"];
                         en.price = (float)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
-                        
+                        return true;
                     }
                     dr.Close();
                     connection.Close();
-                    return true;
+                    return false;
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
                 }
             }
         }/*Devuelvesolo el producto siguiente  al indicado.*/
@@ -208,8 +256,9 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MIN(id) FROM Productos where id  > (SELECT id FROM Productos WHERE code =" + en.code + "));";
+                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MIN(id) FROM Productos where id  > (SELECT id FROM Productos WHERE code =@code));";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
                     if (dr.Read())
                     {
@@ -219,17 +268,25 @@ namespace library
                         en.category = (int)dr["category"];
                         en.price = (float)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
+                        return true;
                     }
                     dr.Close();
                     connection.Close();
-                    return true;
+                    return false;
                 }
                 catch (SqlException ex)
                 {
                     Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                     connection.Close();
-                    return false;
+                    throw ex;
 
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                    connection.Close();
+                    throw ex;
+                    
                 }
             }
         } /*Devuelve solo elproducto anterior   al indicado.*/

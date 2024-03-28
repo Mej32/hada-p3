@@ -13,19 +13,28 @@ namespace proWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack) //Para que se ejecute la primera vez que inicia la página
             {
 
                 ENCategory enc = new ENCategory();
+                List <ENCategory> categories = enc.readAll();
                 Dictionary<int, string> data = new Dictionary<int, string>();
-                data.Add(1, "Computing");
-                data.Add(2, "Telephony");
-                data.Add(3, "Gaming");
-                data.Add(4, "Home appliances");
+                foreach(var cat in categories)
+                {
+                    data.Add(cat.id, cat.name);
+                }
+
+                CategoryList.DataSource = data;
+                CategoryList.DataTextField = "Value"; //asignar id de la categoria como key y el nombre de la categoria como value
+                CategoryList.DataValueField = "Key";
+                CategoryList.DataBind();
+                CategoryList.SelectedIndex = 0;
+
+
 
             }
         }
-        private bool Check(ref int amount, ref float price, ref int valuecat, ref DateTime Correctformat)
+        private bool CheckCreateUpdate(ref int amount, ref float price, ref int valuecat, ref DateTime Correctformat)
         {
             string formatofecha = "dd/MM/yyyy HH:mm:ss";
 
@@ -64,11 +73,32 @@ namespace proWeb
             catch (Exception ex)
             {
                 EtiquetaFallo.Visible = true;
-                Console.WriteLine($"Product operation has failed.Error: {0}", ex.Message);
+                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
                 return false;
             }
 
         }//Metodo creado para comprobar formato introducido, pasa los parametros por referencia
+        private bool CheckCode()
+        {
+            try
+            {
+                if ((Codebox.Text.Length > 16 || Codebox.Text.Length < 1))
+                {
+                    EtiquetaFallo.Visible = true;
+                    throw new Exception();
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                EtiquetaFallo.Visible = true;
+                Console.WriteLine("Product operation has failed.Error: {0}", ex.Message);
+                return false;
+            }
+        }
         protected void Create_click(object sender, EventArgs create)
         {
             EtiquetaExito.Visible = false;
@@ -76,9 +106,8 @@ namespace proWeb
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount,ref price,ref valuecat,ref Correctformat))
+            if (CheckCreateUpdate(ref amount,ref price,ref valuecat,ref Correctformat))
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.Create())
                 {
@@ -99,9 +128,8 @@ namespace proWeb
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            if (CheckCreateUpdate(ref amount, ref price, ref valuecat, ref Correctformat))
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
 
                 if (producto.Update())
@@ -115,16 +143,17 @@ namespace proWeb
                 
             }
         }
+        //A partir de este método (Delete) solamente comprobaremos el formato del código ya que no necesitamos nada más para borrar/leer de las diferentes formas posibles en una consulta SQL, ponemos el resto de valores a valor mínimo por si el formato es incorrecto
         protected void Delete_click(object sender, EventArgs delete)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
+            NameBox.Text = "";
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            if (CheckCode())
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.Delete())
                 {
@@ -136,37 +165,32 @@ namespace proWeb
                 }
             }
         }
+        //ReadFirst realimente no necesita nada para su consulta SQL por lo que se crea el ENProduct vacío para llamar este método
         protected void ReadFirst_click(object sender, EventArgs RF)
         {
             EtiquetaExito.Visible = false;
-            EtiquetaFallo.Visible = false;
-            int amount = 0, valuecat = 0;
-            float price = 0;
-            DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            EtiquetaFallo.Visible = false;     
+            ENProduct producto = new ENProduct(); 
+            if (producto.ReadFirst())
             {
-                valuecat += 1;
-                ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); 
-                if (producto.ReadFirst())
-                {
-                    EtiquetaExito.Visible = true;
-                }
-                else
-                {
-                    EtiquetaFallo.Visible = true;
-                }
+                EtiquetaExito.Visible = true;
             }
+            else
+            {
+                EtiquetaFallo.Visible = true;
+            }
+            
         }
         protected void Read_click(object sender, EventArgs RF)
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
+            NameBox.Text = "";
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            if (CheckCode())
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat); 
                 if (producto.Read())
                 {
@@ -182,12 +206,12 @@ namespace proWeb
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
+            NameBox.Text = "";
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            if (CheckCode())
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.ReadPrev())
                 {
@@ -204,12 +228,12 @@ namespace proWeb
         {
             EtiquetaExito.Visible = false;
             EtiquetaFallo.Visible = false;
+            NameBox.Text = "";
             int amount = 0, valuecat = 0;
             float price = 0;
             DateTime Correctformat = DateTime.MinValue;
-            if (Check(ref amount, ref price, ref valuecat, ref Correctformat))
+            if (CheckCode())
             {
-                valuecat += 1;
                 ENProduct producto = new ENProduct(Codebox.Text, NameBox.Text, amount, price, valuecat, Correctformat);
                 if (producto.ReadNext())
                 {
