@@ -1,11 +1,9 @@
 #Archivos a ignorar:
-hada-p3/library/obj/
-hada-p3/library/bin/
-hada-p3/packages/
-hada-p3/proWeb/Web.Debug.config
-hada-p3/proWeb/Web.Release.config
-hada-p3/proWeb/bin/
-hada-p3/proWeb/obj/
-hada-p3/.vs/
-hada-p3/proWeb/App_Data/
-
+library/obj/
+library/bin/
+packages/
+proWeb/Web.Debug.config
+proWeb/Web.Release.config
+proWeb/bin/
+proWeb/obj/
+.vs/
