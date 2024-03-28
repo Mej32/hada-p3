@@ -29,15 +29,14 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string fechaHoraSQL = en.creationDate.ToString("yyyy-MM-dd HH:mm:ss");
-                    string Consulta = $"Insert Into Products (code,name,amount,price,category,creationDate) VALUES (@code,@name,@amount,@price,@category,@fecha)";
+                    string Consulta = "Insert Into Products (code,name,amount,price,category,creationDate) VALUES (@code,@name,@amount,@price,@category,@fecha)";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     consulta.Parameters.AddWithValue("@name", en.name);
                     consulta.Parameters.AddWithValue("@amount", en.amount);
                     consulta.Parameters.AddWithValue("@price", en.price);
                     consulta.Parameters.AddWithValue("@category", en.category);
-                    consulta.Parameters.AddWithValue("@fecha", fechaHoraSQL);
+                    consulta.Parameters.AddWithValue("@fecha", en.creationDate);
                     consulta.ExecuteNonQuery(); 
                     connection.Close();
                     return true; //no hace falta comprobar ya que si entra en el bool create de CADProducts significa que no hay otro codigo igual y que no 
@@ -63,15 +62,14 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string fechaHoraSQL = en.creationDate.ToString("yyyy-MM-dd HH:mm:ss");
-                    string Consulta = $"UPDATE Products SET name=@name,price=@price,amount=@amount,category=@category,creationDate=@fecha WHERE code =@code;";
+                    string Consulta = "UPDATE Products SET name=@name,price=@price,amount=@amount,category=@category,creationDate=@fecha WHERE code =@code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     consulta.Parameters.AddWithValue("@name", en.name);
                     consulta.Parameters.AddWithValue("@amount", en.amount);
                     consulta.Parameters.AddWithValue("@price", en.price);
                     consulta.Parameters.AddWithValue("@category", en.category);
-                    consulta.Parameters.AddWithValue("@fecha", fechaHoraSQL);
+                    consulta.Parameters.AddWithValue("@fecha", en.creationDate);
                     int columnasafectadas=consulta.ExecuteNonQuery();
                     connection.Close();
                     if (columnasafectadas < 1)
@@ -106,7 +104,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"DELETE FROM Products WHERE code = @code;";
+                    string Consulta = "DELETE FROM Products WHERE code = @code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     int columnasafectadas = consulta.ExecuteNonQuery();
@@ -142,7 +140,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Products WHERE code=@code;";
+                    string Consulta = "SELECT * FROM Products WHERE code=@code;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
@@ -151,7 +149,7 @@ namespace library
                         en.name = dr["name"].ToString();
                         en.amount = (int)dr["amount"];
                         en.category = (int)dr["category"];
-                        en.price = (float)dr["price"];
+                        en.price = (float)(double)dr["price"]; //al no estar definido en la bd creada el float se le pone de valor predeterminado 53, lo que lo convierte en un coulbe por lo que se ha de realizar un doble casteo
                         en.creationDate = (DateTime)dr["creationDate"];
                         return true;
                     }
@@ -179,7 +177,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Products LIMIT 1;";
+                    string Consulta = "SELECT TOP 1 * from Products;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     SqlDataReader dr = consulta.ExecuteReader();
                     if (dr.Read())
@@ -188,7 +186,7 @@ namespace library
                         en.name = dr["name"].ToString();
                         en.amount = (int)dr["amount"];
                         en.category = (int)dr["category"];
-                        en.price = (float)dr["price"];
+                        en.price = (float)(double)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
                         return true;
                     }
@@ -217,7 +215,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MAX(id) FROM Productos where id  < (SELECT id FROM Productos WHERE code =@code));";
+                    string Consulta = " SELECT * FROM Products WHERE id = (SELECT MIN(id) FROM Products where id  > (SELECT id FROM Products WHERE code =@code));";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
@@ -227,7 +225,7 @@ namespace library
                         en.name = dr["name"].ToString();
                         en.amount = (int)dr["amount"];
                         en.category = (int)dr["category"];
-                        en.price = (float)dr["price"];
+                        en.price = (float)(double)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
                         return true;
                     }
@@ -256,7 +254,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Productos WHERE id = (SELECT MIN(id) FROM Productos where id  > (SELECT id FROM Productos WHERE code =@code));";
+                    string Consulta = "SELECT * FROM Products WHERE id = (SELECT MAX(id) FROM Products where id  < (SELECT id FROM Products WHERE code =@code));";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     consulta.Parameters.AddWithValue("@code", en.code);
                     SqlDataReader dr = consulta.ExecuteReader();
@@ -266,7 +264,7 @@ namespace library
                         en.name = dr["name"].ToString();
                         en.amount = (int)dr["amount"];
                         en.category = (int)dr["category"];
-                        en.price = (float)dr["price"];
+                        en.price = (float)(double)dr["price"];
                         en.creationDate = (DateTime)dr["creationDate"];
                         return true;
                     }

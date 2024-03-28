@@ -60,7 +60,7 @@ namespace proWeb
                 {
                     throw new ArgumentException();
                 }
-                if ((Codebox.Text.Length > 16 || Codebox.Text.Length < 1) || (NameBox.Text.Length > 32) || (amount < 0 || amount > 9999) || (price < 0 || price > 9999.99) || (valuecat > 3 || valuecat < 0)){
+                if ((Codebox.Text.Length > 16 || Codebox.Text.Length < 1) || (NameBox.Text.Length > 32) || (amount < 0 || amount > 9999) || (price < 0 || price > 9999.99) || (valuecat > 4 || valuecat < 1)){
                     EtiquetaFallo.Visible = true;
                     throw new Exception();
                 }
@@ -174,6 +174,12 @@ namespace proWeb
             if (producto.ReadFirst())
             {
                 EtiquetaExito.Visible = true;
+                Codebox.Text = producto.code;
+                NameBox.Text = producto.name;
+                AmountBox.Text = producto.amount.ToString();
+                PriceBox.Text = producto.price.ToString();
+                CategoryList.SelectedIndex = producto.category - 1; // Ya que los IDs de las categorías comienzan desde 1 y el índice del DropDownList comienza en 0, el indice de la DropDrownList siempre será 1 más que el índice de la categoría seleccionada.
+                CreationDateBox.Text = producto.creationDate.ToString();
             }
             else
             {
@@ -195,6 +201,12 @@ namespace proWeb
                 if (producto.Read())
                 {
                     EtiquetaExito.Visible = true;
+                    NameBox.Text = producto.name;
+                    AmountBox.Text = producto.amount.ToString();
+                    PriceBox.Text = producto.price.ToString();
+                    CategoryList.SelectedIndex = producto.category -1; // Ya que los IDs de las categorías comienzan desde 1 y el índice del DropDownList comienza en 0, el indice de la DropDrownList siempre será 1 más que el índice de la categoría seleccionada.
+                    CreationDateBox.Text = producto.creationDate.ToString();    
+
                 }
                 else
                 {
@@ -216,6 +228,12 @@ namespace proWeb
                 if (producto.ReadPrev())
                 {
                     EtiquetaExito.Visible = true;
+                    Codebox.Text = producto.code;
+                    NameBox.Text = producto.name;
+                    AmountBox.Text = producto.amount.ToString();
+                    PriceBox.Text = producto.price.ToString();
+                    CategoryList.SelectedIndex = producto.category - 1; // Ya que los IDs de las categorías comienzan desde 1 y el índice del DropDownList comienza en 0, el indice de la DropDrownList siempre será 1 más que el índice de la categoría seleccionada.
+                    CreationDateBox.Text = producto.creationDate.ToString();
                 }
                 else
                 {
@@ -238,6 +256,12 @@ namespace proWeb
                 if (producto.ReadNext())
                 {
                     EtiquetaExito.Visible = true;
+                    Codebox.Text = producto.code;
+                    NameBox.Text = producto.name;
+                    AmountBox.Text = producto.amount.ToString();
+                    PriceBox.Text = producto.price.ToString();
+                    CategoryList.SelectedIndex = producto.category - 1; // Ya que los IDs de las categorías comienzan desde 1 y el índice del DropDownList comienza en 0, el indice de la DropDrownList siempre será 1 más que el índice de la categoría seleccionada.
+                    CreationDateBox.Text = producto.creationDate.ToString();
                 }
                 else
                 {

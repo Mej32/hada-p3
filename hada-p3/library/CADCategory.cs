@@ -23,8 +23,9 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT name FROM Categories WHERE name = '"+en.name+"';";
+                    string Consulta = "SELECT name FROM Categories WHERE name = @name;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
+                    consulta.Parameters.AddWithValue("@name", en.name);
                     SqlDataReader dr = consulta.ExecuteReader();
                     if (dr.Read())
                     {
@@ -53,7 +54,7 @@ namespace library
                 try
                 {
                     connection.Open();
-                    string Consulta = $"SELECT * FROM Categories;";
+                    string Consulta = "SELECT * FROM Categories;";
                     SqlCommand consulta = new SqlCommand(Consulta, connection);
                     SqlDataReader dr = consulta.ExecuteReader();
                     while (dr.Read())
