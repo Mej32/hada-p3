@@ -1,2 +1,2 @@
-He borrado un archivo dentro de packs en la carpeta de git ya que ocupaba 26MB, en principio todos los commits se ven perfectamente con gitk en mi ordenador, pero por si acaso no se ven al descargar el .zip dejo aqui el link del repositorio online.
+He borrado un archivo dentro de packs en la carpeta de git ya que ocupaba 26MB, en principio todos los commits se ven perfectamente con gitk en mi ordenador, pero por si acaso no se ven al descargar el .zip dejo aqui el link del repositorio online. No ejecutar proWeb desde Google Chroome ya que este no inicia la página debido a no poder verificar el origen de la página, recomiendo iniciarla con Microsoft Edge aunque en opera e internet explore también funciona.
 https://github.com/jbn99-ua/hada-p3
